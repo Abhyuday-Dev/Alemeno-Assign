@@ -35,13 +35,16 @@ router.post("/signup", async (req, res) => {
 });
 
 router.post("/login", async (req, res) => {
-  const { username, password } = req.headers;
+  const { credentials } = req.body;
+
+  const username=credentials.username;
+  const password=credentials.password;
   const user = await User.findOne({ username, password });
   if (user) {
     const token = jwt.sign({ username, role: "user" }, SECRET, {
       expiresIn: "2h",
     });
-    res.json({ message: "User Logged In successfully" });
+    res.json({ message: "User Logged In successfully",token: token });
   } else {
     res.status(403).json({ message: "User does not exist" });
   }
@@ -78,7 +81,7 @@ router.post('/addCourse', async (req, res) => {
 });
 
   
-router.post('/courses/:courseId/enroll', async (req, res) => {
+router.post('/courses/:courseId/enroll',authenticateJwt, async (req, res) => {
     const { courseId } = req.params;
     const { userId } = req.body;
   
@@ -87,7 +90,6 @@ router.post('/courses/:courseId/enroll', async (req, res) => {
       if (!course) {
         return res.status(404).json({ message: 'Course not found' });
       }
-  
       // Check if user is already enrolled
       if (course.enrolledUsers.includes(userId)) {
         return res.status(400).json({ message: 'User already enrolled in this course' });
@@ -111,6 +113,56 @@ router.post('/courses/:courseId/enroll', async (req, res) => {
       res.status(500).json({ message: 'Internal server error' });
     }
   });
+
+  router.get('/getUserCourses/:userId',authenticateJwt, async (req, res) => {
+    try {
+      const { userId } = req.params;
+  
+      // Fetch the user by userId and populate courses and completedCourses
+      const user = await User.findById(userId)
+        .populate('courses')
+        .populate('completedCourses');
+  
+      if (!user) {
+        return res.status(404).json({ message: 'User not found' });
+      }
+  
+      // Send back the arrays of courses and completedCourses
+      res.json({ enrolledCourses: user.courses, completedCourses: user.completedCourses });
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ message: 'Server error' });
+    }
+  });
+  
+
+  router.post('/markCourseCompleted', async (req, res) => {
+    try {
+      const { userId, courseId } = req.body;
+  
+      // Find the user and update their completedCourses array
+      const user = await User.findById(userId);
+      if (!user) {
+        return res.status(404).json({ message: 'User not found' });
+      }
+  
+      // Check if the course is in the user's enrolled courses
+      if (!user.courses.includes(courseId)) {
+        return res.status(400).json({ message: 'User is not enrolled in this course' });
+      }
+  
+      // Move the course from enrolled to completed
+      user.courses = user.courses.filter(course => course.toString() !== courseId);
+      user.completedCourses.push(courseId);
+  
+      await user.save();
+      res.json({ message: 'Course marked as completed' });
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ message: 'Server error' });
+    }
+  });
+  
 
 
   module.exports = router

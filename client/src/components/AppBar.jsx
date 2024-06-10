@@ -42,9 +42,9 @@ const AppBar = () => {
             }}
             size="medium"
             variant="contained"
-            onClick={() => navigate("/addCourse")}
+            onClick={() => navigate("/dashboard")}
           >
-            Add Course
+            Dashboard
           </Button>
           <Button
             style={{

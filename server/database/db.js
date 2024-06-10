@@ -14,6 +14,12 @@ const UserSchema = new mongoose.Schema({
       ref: "Course",
     },
   ],
+  completedCourses: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Course',
+    },
+  ],
 });
 
 //Admin Schema

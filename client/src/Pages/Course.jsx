@@ -1,7 +1,7 @@
 import { Button, Typography, Card, CardContent, CardMedia, Accordion, AccordionSummary, AccordionDetails } from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams,useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { BASE_URL } from "../config.js";
 import axios from "axios";
@@ -14,6 +14,7 @@ function CourseDetails() {
   const course = useSelector((state) => state.course.course);
   const loading = useSelector((state) => state.course.loading);
   const userId = useSelector((state) => state.user.userId);
+  const navigate=useNavigate();
   
 
   const init = async () => {
@@ -49,6 +50,7 @@ function CourseDetails() {
         }
       );
       console.log(response.data.message);
+      navigate("/dashboard");
       // Add any additional logic after successful enrollment
     } catch (error) {
       console.error('Error enrolling in course:', error);

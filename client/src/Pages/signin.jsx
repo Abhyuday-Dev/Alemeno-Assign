@@ -19,13 +19,11 @@ const SignIn = () => {
     try {
       const response = await axios.post(
         "http://localhost:3000/user/login",
-        null,
-        { headers: credentials }
+        { credentials }
       );
 
       const data = response.data;
       localStorage.setItem("token", data.token);
-      //console.log("Token:", data.token);
       window.location = "/";
     } catch (error) {
       console.error("Login failed:", error);

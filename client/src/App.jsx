@@ -15,6 +15,7 @@ import { BASE_URL } from './config.js';
 
 import Courses from './Pages/courses.jsx';
 import CourseDetails from './Pages/Course.jsx';
+import DashBoard from './Pages/DashBoard.jsx';
 
 function App() {
   const dispatch = useDispatch();
@@ -56,6 +57,7 @@ function App() {
           <Route path='/login' element={<SignIn />} />
           <Route path='/courses' element={<Courses />} />
           <Route path='/course/:courseId' element={<CourseDetails />} />
+          <Route path='/dashboard' element={<DashBoard />} />
         </Routes>
       </div>
     </Provider>
