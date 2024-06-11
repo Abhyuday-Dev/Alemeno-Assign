@@ -70,7 +70,7 @@ const AppBar = () => {
             borderRadius="50%"
             marginRight="15px"
           >
-            {userName[0]}
+            {userName[0].toUpperCase()}
           </Typography>
           <Button
             style={{

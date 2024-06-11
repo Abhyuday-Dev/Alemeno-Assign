@@ -54,11 +54,11 @@ function CourseDetails() {
           },
         }
       );
-      console.log(response.data.message);
+      alert(response.data.message);
       navigate("/dashboard");
       
     } catch (error) {
-      console.error('Error enrolling in course:', error);
+      alert ('already enrolled', error);
     }
   };
 
