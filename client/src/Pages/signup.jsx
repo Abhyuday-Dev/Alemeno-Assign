@@ -5,6 +5,7 @@ import Card from "@mui/material/Card";
 import Typography from "@mui/material/Typography";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import { BASE_URL } from "../config";
 
 const SignUp = () => {
   const [email, setEmail] = useState("");
@@ -72,7 +73,7 @@ const SignUp = () => {
             onClick={async () => {
               
               const response = await axios.post(
-                "http://localhost:3000/user/signup",
+                `${BASE_URL}/user/signup`,
                 {
                   name: name,
                   username: email,

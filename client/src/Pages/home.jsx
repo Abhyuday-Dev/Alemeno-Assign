@@ -1,5 +1,7 @@
 import React from 'react';
 
+//Home Page
+
 const Home = () => {
   return (
     <div style={{ display: 'flex', alignItems: 'center', height: '90vh' }}>

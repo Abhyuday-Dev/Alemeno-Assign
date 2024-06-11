@@ -3,6 +3,8 @@ require("dotenv").config();
 
 const SECRET = process.env.SECRET;
 
+//JWT authentication
+
 const authenticateJwt = (req, res, next) => {
   const authHeader = req.headers.authorization;
   if (authHeader) {

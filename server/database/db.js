@@ -22,13 +22,6 @@ const UserSchema = new mongoose.Schema({
   ],
 });
 
-//Admin Schema
-
-const AdminSchema = new mongoose.Schema({
-  name: { type: String },
-  username: { type: String },
-  password: String,
-});
 
 //Course Schema
 
@@ -60,11 +53,9 @@ CourseSchema.methods.enrollUser = async function (userId) {
 };
 
 const User = mongoose.model("User", UserSchema);
-const Admin = mongoose.model("Admin", AdminSchema);
 const Course = mongoose.model("Course", CourseSchema);
 
 module.exports = {
   User,
-  Admin,
   Course,
 };

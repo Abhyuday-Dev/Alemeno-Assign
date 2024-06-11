@@ -12,7 +12,6 @@ import store from './redux/store';
 import { setUser, clearUser } from './redux/slices/userSlice';
 import axios from 'axios';
 import { BASE_URL } from './config.js';
-
 import Courses from './Pages/courses.jsx';
 import CourseDetails from './Pages/Course.jsx';
 import DashBoard from './Pages/DashBoard.jsx';
@@ -20,6 +19,8 @@ import DashBoard from './Pages/DashBoard.jsx';
 function App() {
   const dispatch = useDispatch();
 
+  
+  //Fetching User Information and Storing It
   useEffect(() => {
     const init = async () => {
       try {
@@ -46,6 +47,8 @@ function App() {
 
     init();
   }, [dispatch]);
+
+  //Page Router
 
   return (
     <Provider store={store}>

@@ -34,10 +34,12 @@ router.post("/signup", async (req, res) => {
 });
 
 router.post("/login", async (req, res) => {
+  
   const { credentials } = req.body;
 
   const username = credentials.username;
   const password = credentials.password;
+
   const user = await User.findOne({ username, password });
   if (user) {
     const token = jwt.sign({ username, role: "user" }, SECRET, {
@@ -50,7 +52,8 @@ router.post("/login", async (req, res) => {
 });
 
 router.get("/courses", authenticateJwt, async (req, res) => {
-  console.log("hehr");
+
+  //get all courses
   const courses = await Course.find();
   res.json({ courses: courses });
 });
@@ -68,6 +71,8 @@ router.post("/addCourse", async (req, res) => {
 
 router.get("/courses/:courseId", authenticateJwt, async (req, res) => {
   const courseId = req.params.courseId;
+
+  //Fetch course by course id
   const course = await Course.findById(courseId);
   if (course) {
     res.json({ course });
@@ -77,6 +82,8 @@ router.get("/courses/:courseId", authenticateJwt, async (req, res) => {
 });
 
 router.post("/courses/:courseId/enroll", authenticateJwt, async (req, res) => {
+
+  //Fetch course and user id
   const { courseId } = req.params;
   const { userId } = req.body;
 
@@ -92,11 +99,11 @@ router.post("/courses/:courseId/enroll", authenticateJwt, async (req, res) => {
         .json({ message: "User already enrolled in this course" });
     }
 
-    // Update course's enrolledUsers array and save the course
+    // Update courses enrolledUsers array and save the course
     course.enrolledUsers.push(userId);
     await course.save();
 
-    // Update user's courses array and save the user
+    // Update user courses array and save the user
     const user = await User.findById(userId);
     if (!user) {
       return res.status(404).json({ message: "User not found" });
@@ -115,7 +122,7 @@ router.get("/getUserCourses/:userId", authenticateJwt, async (req, res) => {
   try {
     const { userId } = req.params;
 
-    // Fetch the user by userId and populate courses and completedCourses
+    // Get user by userId and populate courses and completedCourses Array
     const user = await User.findById(userId)
       .populate("courses")
       .populate("completedCourses");
@@ -124,7 +131,7 @@ router.get("/getUserCourses/:userId", authenticateJwt, async (req, res) => {
       return res.status(404).json({ message: "User not found" });
     }
 
-    // Send back the arrays of courses and completedCourses
+    // Return courses and completedCourses
     res.json({
       enrolledCourses: user.courses,
       completedCourses: user.completedCourses,
@@ -145,7 +152,7 @@ router.post("/markCourseCompleted", async (req, res) => {
       return res.status(404).json({ message: "User not found" });
     }
 
-    // Check if the course is in the user's enrolled courses
+    // Check if the course is in the users enrolled courses array
     if (!user.courses.includes(courseId)) {
       return res
         .status(400)

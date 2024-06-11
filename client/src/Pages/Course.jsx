@@ -7,6 +7,8 @@ import { BASE_URL } from "../config.js";
 import axios from "axios";
 import { setCourse, setLoading } from "../redux/slices/courseSlice.js";
 
+//CourseDetail Page
+
 
 function CourseDetails() {
   const { courseId } = useParams();
@@ -17,6 +19,7 @@ function CourseDetails() {
   const navigate=useNavigate();
   
 
+  //Getting selected course with courseId
   const init = async () => {
     dispatch(setLoading(true));
     try {
@@ -37,6 +40,8 @@ function CourseDetails() {
     init();
   }, []);
 
+
+  //function to enroll in course
   const enrollCourse = async () => {
     console.log(userId);
     try {
@@ -51,10 +56,9 @@ function CourseDetails() {
       );
       console.log(response.data.message);
       navigate("/dashboard");
-      // Add any additional logic after successful enrollment
+      
     } catch (error) {
       console.error('Error enrolling in course:', error);
-      // Handle error
     }
   };
 
@@ -66,6 +70,8 @@ function CourseDetails() {
     return <div>Loading...</div>;
   }
 
+
+  //Displaying Course Details
   return (
     <Card sx={{ margin: '2rem', padding: '1rem' }}>
       <Typography variant="h4" sx={{ marginBottom: '1rem', fontSize: '2rem' }}>

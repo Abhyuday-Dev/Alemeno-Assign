@@ -5,6 +5,7 @@ import Card from "@mui/material/Card";
 import Typography from "@mui/material/Typography";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import { BASE_URL } from "../config";
 
 const SignIn = () => {
   const [email, setEmail] = useState("");
@@ -18,7 +19,7 @@ const SignIn = () => {
 
     try {
       const response = await axios.post(
-        "http://localhost:3000/user/login",
+        `${BASE_URL}/user/login`,
         { credentials }
       );
 

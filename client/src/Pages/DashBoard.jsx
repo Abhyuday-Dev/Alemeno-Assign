@@ -4,13 +4,18 @@ import { useSelector } from "react-redux";
 import axios from "axios";
 import CourseCard from "../components/CourseCard";
 import DashBoardCard from "../components/dashBoardCard";
-
 import { Typography } from "@mui/material";
+
+
+//User Dashboard Page
 
 const DashBoard = () => {
   const [courses, setCourses] = useState([]);
   const [completedCourses, setCompletedCourses] = useState([]);
   const userId = useSelector((state) => state.user.userId);
+
+
+  //Fetching User Courses (Enrolled + Completed)
 
   const init = async (userId) => {
     console.log("dash", userId);
@@ -36,6 +41,8 @@ const DashBoard = () => {
       init(userId);
     }
   }, [userId]);
+
+  //Displaying courses (Enrolled + Completed)
 
   return (
   <div>

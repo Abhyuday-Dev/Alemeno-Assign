@@ -6,11 +6,17 @@ import axios from "axios";
 import { setCourses, setSearchQuery, setLoading } from "../redux/slices/courseSlice";
 import CourseCard from "../components/CourseCard.jsx";
 
+
+//Course listing page
+
 function Courses() {
   const dispatch = useDispatch();
   const courses = useSelector((state) => state.course.filteredCourses);
   const searchQuery = useSelector((state) => state.course.searchQuery);
 
+
+
+  //fetch Courses
   const init = async () => {
     dispatch(setLoading(true));
     const response = await axios.get(`${BASE_URL}/user/courses`, {
