@@ -23,7 +23,7 @@
   ```
   cd server
   ```
-  - Create a .env file:
+- Create a .env file:
   ```
   SECRET=YOUR_SECRET
   MONGO_URI=YOuR_MONGODB_URL
