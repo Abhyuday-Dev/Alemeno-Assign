@@ -26,14 +26,6 @@ export const courseSlice = createSlice({
         course.name.toLowerCase().includes(action.payload.toLowerCase())
       );
     },
-    updateCourseLikes: (state, action) => {
-      const { courseId, likes } = action.payload;
-      const courseIndex = state.courses.findIndex(course => course._id === courseId);
-      if (courseIndex !== -1) {
-        state.courses[courseIndex].likes = likes;
-        state.filteredCourses[courseIndex].likes = likes;
-      }
-    },
   },
 });
 
