@@ -2,7 +2,7 @@
 
 ## Installation
 
-1. Clone the repository: `git clone https://github.com/devprashantt/food-donation.git`
+1. Clone the repository: `https://github.com/Abhyuday-Dev/Alemeno-Assign.git`
 
 2. Frontend Installation:
 - Navigate to the project frontend directory:
