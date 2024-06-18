@@ -43,7 +43,6 @@ Make sure you have Node.js and npm (Node Package Manager) installed on your mach
 
 1. Frontend:
 - The frontend application can be accessed at `http://localhost:5173` in your web browser.
-- Follow the provided UI to navigate through the food donation process.
 
 2. Backend:
 - The backend server will be running at `http://localhost:3000`.
